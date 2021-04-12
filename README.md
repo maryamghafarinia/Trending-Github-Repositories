@@ -1,4 +1,4 @@
-# Trending-Github-Repositories
+# Trending Github Repositories in Last week
 
 The idea of this project is to implement a small client application for discovering
 trending repositories on GitHub.
