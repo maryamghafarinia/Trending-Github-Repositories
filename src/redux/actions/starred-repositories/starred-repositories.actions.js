@@ -5,20 +5,22 @@ import {
 } from "../../constants/starred-repositories/starred-repositories.constants";
  
 
-export const fetchFavoriteRepositories = () => (dispatch) =>{
+export const fetchFavoriteRepositories = (language) => (dispatch) =>{
     try {
         dispatch({
             type: FAVORITES_FETCH_REQUEST
         })
         
-        const favoriteRepositories = []
+        let favoriteRepositories = []
         Object.keys(localStorage).forEach(key => {
             favoriteRepositories.push(JSON.parse(localStorage.getItem(key)))
         })
-        const data = favoriteRepositories;
+        if(language) {
+             favoriteRepositories = favoriteRepositories.filter(repository => repository.language === language);
+        }
         dispatch({
             type: FAVORITES_FETCH_SUCCESS,
-            payload: data
+            payload: favoriteRepositories
         })
         
     } catch (error) {

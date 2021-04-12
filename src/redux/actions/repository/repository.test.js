@@ -6,7 +6,8 @@ import fetchMock from 'fetch-mock'
 import moment from 'moment'
 
 const lastWeekDate = moment().subtract(7,'days').format('YYYY-MM-DD');
-const URL = `https://api.github.com/search/repositories?sort=stars&order=desc&q=created:%3E${lastWeekDate}&`;
+const language = 'GO'
+const URL = `https://api.github.com/search/repositories?sort=stars&order=desc&q=language:${language}&created:${lastWeekDate}`;
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
@@ -28,7 +29,7 @@ describe('repositories', () => {
     ]
     const store = mockStore({ payload: [] })
 
-    return store.dispatch(actions.fetchRepositories()).then((res) => {
+    return store.dispatch(actions.fetchRepositories(language)).then((res) => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions)
     })
@@ -51,7 +52,7 @@ describe('repositories', () => {
     ]
     const store = mockStore({ payload: [] })
 
-    return store.dispatch(actions.fetchRepositories()).then((res) => {
+    return store.dispatch(actions.fetchRepositories(language)).then((res) => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions)
     })

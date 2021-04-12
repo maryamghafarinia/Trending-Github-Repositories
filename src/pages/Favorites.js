@@ -11,7 +11,7 @@ import Languages from '../components/Language'
     
 const Favorites = () => {
     const dispatch  = useDispatch()
-    const [language, setLanguage] = useState('GO');
+    const [language, setLanguage] = useState('');
       
       
     useEffect(()=>{
