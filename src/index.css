@@ -79,11 +79,13 @@ body {
   cursor: pointer;
 }
 
-.repository.favorite {
-  border-left: 5px solid red;
+.repository h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.repository h3 {
+.filter {
   display: flex;
   align-items: center;
   justify-content: space-between;

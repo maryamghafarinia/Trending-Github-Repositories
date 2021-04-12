@@ -1,18 +1,25 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {fetchRepositories} from "../redux/actions/repository/repository.actions"
 import { addFavoriteRepository } from '../redux/actions/starred-repositories/starred-repositories.actions'
 import {useSelector, useDispatch} from "react-redux"
 import Loader from "../components/BackdropLoader"
 import Repository from './Repository'
 import { Link } from 'react-router-dom'
+import Languages from '../components/Language'
 
     
 const Repositories = () => {
-    const dispatch  = useDispatch()    
+    const dispatch  = useDispatch()
+    const [language, setLanguage] = useState('');
       
     useEffect(()=>{
-        dispatch(fetchRepositories())           
-    }, [dispatch])
+        
+        dispatch(fetchRepositories(language))           
+    }, [dispatch , language])
+
+    const onLanguageChange = (selectedLanguage) => {
+        setLanguage(selectedLanguage);
+      }
 
     const toggleFavorite = async (repository) => {
         dispatch(addFavoriteRepository(repository))
@@ -22,7 +29,11 @@ const Repositories = () => {
  
     return (
             <div className="repositorieslist">
-               <Link to='/Favorites'>Favorites</Link>
+                <div className="filter">
+                    <Languages onChange={onLanguageChange}/>
+                    <Link to='/Favorites'>Go to Starred</Link>
+                </div>
+               
                <hr/>
                 {
                     loading ? <Loader />

@@ -29,10 +29,10 @@ export const fetchRepositoriesFailure = (error) => {
   }
 
 
-export const fetchRepositories =  (dispatch) => {
+export const fetchRepositories = (language, dispatch) => {
     const lastWeekDate = moment().subtract(7,'days').format('YYYY-MM-DD');
-    const URL = `https://api.github.com/search/repositories?sort=stars&order=desc&q=created:%3E${lastWeekDate}&`;
-
+    const URL = `https://api.github.com/search/repositories?
+    sort=stars&order=desc&q=language:${language}&created:${lastWeekDate}`;
     return dispatch => {
         dispatch(fetchRepositoriesRequest())
         return fetch(URL)
