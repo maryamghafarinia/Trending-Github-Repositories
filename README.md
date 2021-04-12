@@ -1,6 +1,6 @@
 # Trending-Github-Repositories
 
-#### How it runs
+## How it runs
 
 #### Install modules and start webpack server
 
@@ -11,7 +11,7 @@ npm start
 
 #### Navigate to http://localhost:3000/ in your browser
 
-# Hoe it works
+## How it works
 
 ```
 Click on Stars in the list of repositories
