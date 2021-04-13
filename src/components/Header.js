@@ -11,7 +11,7 @@ const Header = ({ title }) => {
   return (
     <header className='header'>
       <h1>{title}</h1>
-      <h2>{oneWeekAgo} - {today}</h2>
+      <h5>{oneWeekAgo} - {today}</h5>
       {location.pathname === '/'}
     </header>
   )

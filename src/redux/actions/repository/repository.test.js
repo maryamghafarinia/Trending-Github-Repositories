@@ -77,7 +77,7 @@ const repository =    {
   "labels_url": "https://api.github.com/repos/golang/go/labels{/name}",
   "releases_url": "https://api.github.com/repos/golang/go/releases{/id}",
   "deployments_url": "https://api.github.com/repos/golang/go/deployments",
-  "created_at": "2014-08-19T04:33:40Z",
+  "created_at": "2021-04-11T04:33:40Z",
   "updated_at": "2021-04-13T07:51:25Z",
   "pushed_at": "2021-04-13T00:37:33Z",
   "git_url": "git://github.com/golang/go.git",
@@ -176,6 +176,28 @@ describe('repositories', () => {
     return store.dispatch(actions.fetchRepositories(language)).then((res) => {
       // return of async actions
       expect(res.payload[0].language).toEqual(language)
+    })
+  })
+
+  it('Should return repositories which within last week created', () => {
+
+    fetchMock.getOnce(URL, {
+      body: { items: [repository] },
+      headers: { 'content-type': 'application/json' }
+    })
+
+    const today = moment().format('YYYY-MM-DD');
+
+    const expectedActions = [
+      { type: types.REPOSITORIES_FETCH_REQUEST },
+      { type: types.REPOSITORIES_FETCH_SUCCESS,  payload: [repository] }
+    ]
+    const store = mockStore({ payload: [repository] })
+
+    return store.dispatch(actions.fetchRepositories(language)).then((res) => {
+      // return of async actions
+      expect(moment(res.payload[0].created_at).isAfter(lastWeekDate)).toEqual(true)
+      expect(moment(res.payload[0].created_at).isBefore(today)).toEqual(true)
     })
   })
 
